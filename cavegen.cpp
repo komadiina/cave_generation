@@ -22,9 +22,10 @@ int main(int argC, char** argV) {
 	Cave cavesystem(width, height);
 	cavesystem.noise(0, 1);
 	cavesystem.carve(criteria);
+	cavesystem.box_blur(1);
 
 	CaveImage output(cavesystem);
-	output.save("cave.bmp");
+	output.save("examples/original_cave.bmp");
 
 	return EXIT_SUCCESS;
 }
