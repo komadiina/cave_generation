@@ -58,21 +58,21 @@ ___
 ## Examples
 
 ### 64x64
-| Resolution   | Attributes  |
+| Attributes   | Preview  |
 | :----------: | ----------: |
 |*Unmodified cave, criteria=0.36, blur=1.0:* | ![unmodified_64x64_032](./examples/64_original_cave.bmp) |
 |*Binary thresholded, lower=85, upper=255:* | ![binary_thresholded_64x64](./examples/64_binary_cave.bmp) |
 |*Adaptive thresholded, lower=85, upper=255, 11:2, mean* | ![adaptive_thresholded_64x64](./examples/64_adaptive_cave.bmp) |
 
 ## 256x256
-| Resolution   | Attributes  |
+| Attributes   | Preview  |
 | :----------: | ----------: |
 |*Unmodified cave, criteria=0.37, blur=1.0:* | ![unmodified_256x256_037](./examples/256_original_cave.bmp) |
 |*Binary thresholded, lower=85, upper=255:* | ![binary_thresholded_256x256](./examples/256_binary_cave.bmp) |
 |*Adaptive thresholded, lower=85, upper=255, 11:2, mean* | ![adaptive_thresholded_256x256](./examples/256_adaptive_cave.bmp) |
 
 ## 512x512
-| Resolution   | Attributes  |
+| Attributes   | Preview  |
 | :----------: | ----------: |
 |*Unmodified cave, criteria=0.3667, blur=1.0:* | <img src="./examples/512_original_cave.bmp" width="33%" height="33%"/> |
 |*Binary thresholded, lower=20, upper=255:* | <img src="./examples/512_binary_cave.bmp" width="33%" height="33%"/> |
