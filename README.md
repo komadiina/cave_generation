@@ -77,3 +77,9 @@ ___
 |*Unmodified cave, criteria=0.3667, blur=1.0:* | <img src="./examples/512_original_cave.bmp" width="33%" height="33%"/> |
 |*Binary thresholded, lower=20, upper=255:* | <img src="./examples/512_binary_cave.bmp" width="33%" height="33%"/> |
 |*Adaptive thresholded, lower=20, upper=255, 11:2, mean* |<img src="./examples/512_adaptive_cave.bmp" width="33%" height="33%"/> |
+
+## Credits
+
+I have to give credit where credit is due:  
+* [Bitmap library](https://github.com/kbuffardi/Bitmap) from [kbuffardi](https://github.com/kbuffardi/), made my life writing/reading bitmaps way easier.  
+* Ken Perlin's noise algorithm from [this wiki](https://en.wikipedia.org/wiki/Perlin_noise).
