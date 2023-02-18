@@ -10,94 +10,93 @@
 #include <time.h>
 
 // #include <omp.h>
+#include "./bidirectional_traversal_generation/plot.hpp"
 
 // using namespace concurrency;
 
 typedef struct {
-		float x, y;
+    float x, y;
 } vector2;
 
 class Cave {
-	private:
-		int64_t _width, _height;
-		float** _matrix;
+private:
+    int64_t _width, _height;
+    float** _matrix;
 
-	public:
-		Cave() = delete;
-		Cave(const int64_t& w, const int64_t& h);
+public:
+    Cave() = delete;
+    Cave(const int64_t& w, const int64_t& h);
 
-		// properties
+    // bidirectional traversal demo
+    Cave(const int64_t& w, const int64_t& h, bool** bwPixels)
+    {
+        _width = w;
+        _height = h;
 
-		float** matrix() { return const_cast<float**>(_matrix); }
-		float** matrix() const { return const_cast<float**>(_matrix); }
+        _matrix = new float*[_height];
 
-		inline auto width() { return _width; }
-		inline auto height() { return _height; }
+        for (int y = 0; y < _height; ++y) {
+            _matrix[y] = new float[_width];
+            for (int x = 0; x < _width; ++x)
+                _matrix[y][x] = (float)bwPixels[y][x];
+        }
+    }
 
-		inline auto height() const { return _height; }
-		inline auto width() const { return _width; }
+    Cave(BooleanMatrix bMatrix)
+        : Cave(bMatrix.width, bMatrix.height, bMatrix.getPixels())
+    {
+    }
 
-		// floatmap manipulation
+    // properties
 
-		void noise(float lower, float upper);
-		void box_blur(int radius);
-		void upscale_floatmap(float lower, float upper);
+    float** matrix() { return const_cast<float**>(_matrix); }
+    float** matrix() const { return const_cast<float**>(_matrix); }
 
-		// DFS-based
-		void carve(float criteria);
+    inline auto width() { return _width; }
+    inline auto height() { return _height; }
 
-		// operators
-		friend std::ostream& operator<<(std::ostream& os, const Cave& obj) {
-			for (int y = 0; y < obj.height(); y++) {
-				for (int x = 0; x < obj.width(); x++)
-					os << std::setw(8) << (obj.matrix())[y][x] << " ";
+    inline auto height() const { return _height; }
+    inline auto width() const { return _width; }
 
-				os << std::endl;
-			}
+    // floatmap manipulation
 
-			return os;
-		}
-		Cave& operator=(const Cave& rhs);
+    void noise(float lower, float upper);
+    void box_blur(int radius);
 
-		float at(const int64_t& x, const int64_t& y) {
-			if (x < 0 || y < 0 || x >= _width || y >= _height)
-				throw std::out_of_range("Invalid indexing attempt");
+    // DFS-based
+    void carve(float criteria);
 
-			return _matrix[y][x];
-		}
+    // operators
+    Cave& operator=(const Cave& rhs);
 
-		float at(const int64_t& x, const int64_t& y) const {
-			if (x < 0 || y < 0 || x >= _width || y >= _height)
-				throw std::out_of_range("Invalid indexing attempt");
+    float at(const int64_t& x, const int64_t& y);
+    float at(const int64_t& x, const int64_t& y) const;
 
-			return _matrix[y][x];
-		}
-
-	private:
-		float interpolate(float a0, float a1, float w);
-		vector2 random_gradient(int ix, int iy);
-		float dotgrid_gradient(int ix, int iy, float x, float y);
-		float perlin(float x, float y);
+private:
+    float interpolate(float a0, float a1, float w);
+    vector2 random_gradient(int ix, int iy);
+    float dotgrid_gradient(int ix, int iy, float x, float y);
+    float perlin(float x, float y);
 };
 
 // Pixel, PixelMatrix, Bitmap
 #include "./bitmap.h"
 
 class CaveImage {
-	private:
-		Cave _cave;
-		PixelMatrix _pixelmap;
+private:
+    Cave _cave;
+    PixelMatrix _pixelmap;
 
-	public:
-		CaveImage() = delete;
-		CaveImage(const Cave& cave);
+public:
+    CaveImage() = delete;
+    CaveImage(const Cave& cave);
 
-		void load(const Cave& cave);
-		void save(const std::string& filename);
-		void scale(const uint64_t& factor);
+    void load(const Cave& cave);
+    void save(const std::string& filename);
+    void scale(const uint64_t& factor);
 
-	private:
-		void init_pixelmap();
+private:
+    void init_pixelmap();
 };
 
 #endif
